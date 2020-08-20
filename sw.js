@@ -33,8 +33,13 @@ self.onactivate = e => {
 // fetch event
 self.onfetch = e => {
 	e.respondWith(
-		caches.match(e.request).then(cached_response => {
-			return cached_response || fetch(e.request);
+		caches.match(e.request).then(cachedResponse => {
+			return cachedResponse || fetch(e.request).then(fetchResponse => {
+				caches.open(`static://lividavi19.github.io-0`).then(cache => {
+					cache.put(e.request.url, fetchResponse.clone());
+					return fetchResponse;
+				});
+			});
 		})
 	);
 };
