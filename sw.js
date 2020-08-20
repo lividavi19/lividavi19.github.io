@@ -1,4 +1,4 @@
-const SW_VERSION = 0.66;
+const SW_VERSION = 0.1;
 const STATIC_CACHE_NAME = `static://lividavi19.github.io-${SW_VERSION}`;
 const APP_SHELL = [
 	`.`,
