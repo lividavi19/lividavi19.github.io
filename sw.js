@@ -1,4 +1,4 @@
-const SW_VERSION = 0.3;
+const SW_VERSION = 0.0;
 const STATIC_CACHE_NAME = `static://lividavi19.github.io-${SW_VERSION}`;
 const APP_SHELL = [
 	`.`,
@@ -35,7 +35,7 @@ self.onfetch = e => {
 	e.respondWith(
 		caches.match(e.request).then(cachedResponse => {
 			return cachedResponse || fetch(e.request).then(fetchResponse => {
-				caches.open(`dynamic://lividavi19.github.io-0`).then(cache => {
+				caches.open(`dynamic://lividavi19.github.io`).then(cache => {
 					cache.put(e.request.url, fetchResponse.clone());
 					return fetchResponse;
 				});
