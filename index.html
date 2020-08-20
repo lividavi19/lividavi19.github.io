@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>LIVIDAVI | coming soon</title>
+	<link rel="stylesheet" type="text/css" href="css/base.css">
+	<link rel="icon" type="image/png" href="img/icons/ic_192.png">
+	<meta name="description" content="My portfolio web application">
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=2">
+	<!-- set PWA -->
+	<link rel="manifest" href="manifest.json">
+	<meta name="theme-color" content="#38003c">
+	<!-- iOS support -->
+	<link rel="apple-touch-icon" href="img/icons/ic_192.png">
+	<meta name="apple-mobile-app-status-bar" content="#38003c">
+	<!-- end PWA -->
+</head>
+<body>
+	<!-- main -->
+	<main>
+		<section id="coming-soon" class="full_dims flex_middle">
+			<span class="text_upper_case">lividavi</span>
+			<span class="text_upper_case">coming soon</span>
+			<span class="text_upper_case">@lividavi19.github.io</span>
+		</section>
+	</main>
+
+<!-- scripts -->
+<script src="js/base.js"></script>
+<script src="js/app.js"></script>
+<script>
+	window.onload = e => {
+		/* execute everything in this block */
+		// registering a service worker
+		if (navigator.serviceWorker) {
+			navigator.serviceWorker.register('sw.js').catch(error => {
+				consoleWarn(`Error registering a service worker`, error);
+			});
+		}
+	};
+</script>
+</body>
+</html>
