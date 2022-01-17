@@ -1,10 +1,17 @@
-const SW_VERSION = 0.1;
-const STATIC_CACHE_NAME = `static://lividavi19.github.io-${SW_VERSION}`;
-const APP_SHELL = [
+const staticCacheVersion = 0.1;
+// const dynamicCacheVersion = 1.2;
+const staticCacheName = `static-${staticCacheVersion}://lividavi19.github.io`;
+// const dynamicCacheName = `dynamic-${dynamicCacheVersion}://lividavi19.github.io`;
+const appShell = [
 	`.`,
 	`index.html`,
-	`css/base.css`,
-	`js/base.js`,
+	`assets/css/main.css`,
+	`js/base.jsassets/js/jquery.min.js`,
+	`assets/js/jquery.scrolly.min.js`,
+	`assets/js/browser.min.js`,
+	`assets/js/breakpoints.min.js`,
+	`assets/js/util.js`,
+	`assets/js/main.js`,
 	`img/icons/ic_192.png`,
 	`img/icons/ic_512.png`
 ];
@@ -12,8 +19,8 @@ const APP_SHELL = [
 // install event
 self.oninstall = e => {
 	e.waitUntil(
-		caches.open(STATIC_CACHE_NAME).then(cache => {
-			cache.addAll(APP_SHELL);
+		caches.open(staticCacheName).then(cache => {
+			cache.addAll(appShell);
 		})
 	);
 };
@@ -23,7 +30,7 @@ self.onactivate = e => {
 	e.waitUntil(
 		caches.keys().then(keys => {
 			return Promise.all(keys
-				.filter(key => key !== STATIC_CACHE_NAME)
+				.filter(key => key !== staticCacheName && key !== dynamicCacheName)
 				.map(key => caches.delete(key))
 			);
 		})
@@ -35,7 +42,7 @@ self.onfetch = e => {
 	e.respondWith(
 		caches.match(e.request).then(cachedResponse => {
 			return cachedResponse || fetch(e.request).then(fetchResponse => {
-				return caches.open(`dynamic://lividavi19.github.io`).then(cache => {
+				return caches.open(`${dynamicCacheName}`).then(cache => {
 					cache.put(e.request.url, fetchResponse.clone());
 					return fetchResponse;
 				});
